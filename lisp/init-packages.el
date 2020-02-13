@@ -50,6 +50,7 @@
 (global-hungry-delete-mode)
 
 (require 'smartparens-config)
+;;(add-hook 'js-mode-hook #'smartparens-mode)
 (smartparens-global-mode t)
 
 (ivy-mode 1)
