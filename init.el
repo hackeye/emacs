@@ -2,80 +2,33 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-			   ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
 
-;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
-;; cl - Common Lisp Extension
-(require 'cl)
+(require 'init-packages)
 
-;; Add Packages
-(defvar my/packages '(
-		      ;; --- Auto-completion ---
-		      company
-		      ;; --- Better Editor ---
-		      hungry-delete
-		      ;;Isearch with an overview
-		      swiper
-		      ;;Various completion functions using Ivy
-		      counsel
 
-		      smartparens
-		      ;; --- Major Mode ---
-		      js2-mode
-		      ;; --- Minor Mode ---
-		      nodejs-repl
-		      exec-path-from-shell
-		      ;; --- Themes ---
-		      monokai-theme
-		      ;; solarized-theme
-		      format-all
-		      ;;Auto-format C, C++, JS, Python, Ruby and 40 other languages
-		      company-anaconda
-		      
-		      ) "Default packages")
 
-(setq package-selected-packages my/packages)
 
-(defun my/packages-installed-p ()
-  (loop for pkg in my/packages
-	when (not (package-installed-p pkg)) do (return nil)
-	finally (return t)))
 
-(unless (my/packages-installed-p)
-  (message "%s" "Refreshing package database...")
-  (package-refresh-contents)
-  (dolist (pkg my/packages)
-    (when (not (package-installed-p pkg))
-      (package-install pkg))))
 
 ;;禁止自动备份
 (setq make-backup-files nil)
+
+;;禁止自动保存
+(setq auto-save-default nil)
 
 (global-set-key (kbd "C-h C-f") 'find-function)
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 
-;;Add company-anaconda to allowed company-mode backends list
-(eval-after-load "company"
-  '(add-to-list 'company-backends 'company-anaconda))
-;;Enable anaconda-mode in buffers you want to use company-anaconda
-(add-hook 'python-mode-hook 'anaconda-mode)
 
-(require 'hungry-delete)
-(global-hungry-delete-mode)
 
-(require 'smartparens-config)
-;; Always start smartparens mode in js-mode.
-;;(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
-(smartparens-global-mode t)
 
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
+
+
+
+
 (setq enable-recursive-minibuffers t)
 ;; enable this if you want `swiper' to use it
 ;; (setq search-default-mode #'char-fold-to-regexp)
@@ -86,14 +39,9 @@
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 
-;; Find Executable Path on OS X
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+(global-auto-revert-mode)
 
-(setq auto-mode-alist
-      (append
-       '(("\\.js\\'" . js2-mode))
-       auto-mode-alist))
+
 
 ;;添加 Org-mode 文本内语法高亮
 (require 'org)
@@ -121,9 +69,7 @@
 
 (global-hl-line-mode 1)
 
-;;安装主题
-(add-to-list 'my/packages 'monokai-theme)
-(load-theme 'monokai 1)
+
 
 ;; 设置默认 Org Agenda 文件目录
 (setq org-agenda-files '("~/org"))
@@ -131,8 +77,7 @@
 ;; 设置 org-agenda 打开快捷键
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-;; 开启全局 Company 补全
-(global-company-mode 1)
+
 
 ;; 关闭工具栏，tool-bar-mode 即为一个 Minor Mode
 (tool-bar-mode -1)
