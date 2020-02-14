@@ -1,1 +1,16 @@
 auto-save-list
+.recentf
+server/
+auto-save-list/
+eshell/
+*.???~
+*.??~
+recentf
+ido.last~
+ido.last
+ac-comphist.dat
+*~
+bookmarks
+.mc-lists.el
+.python-environments/
+#ido.last#
