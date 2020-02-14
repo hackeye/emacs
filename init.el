@@ -18,4 +18,9 @@
 
 (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
 
+;;配置文件文档化
+;;(require 'org-install)
+;;(require 'ob-tangle)
+;;(org-babel-load-file (expand-file-name "org-file-name.org" user-emacs-directory))
+
 (load-file custom-file)
