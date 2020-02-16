@@ -36,6 +36,7 @@
 		;;Increase selected region by semantic units
 		iedit
 		;;Edit multiple regions in the same way simultaneously
+		org-pomodoro
 		) "Default packages")
 
  (setq package-selected-packages my/packages)
@@ -105,11 +106,8 @@
 
   (setq indent-tabs-mode nil))
 
-(global-set-key (kbd "C-c t i") 'my-toggle-web-indent)
-
 ;;config for js2-refactor
 (add-hook 'js2-mode-hook #'js2-refactor-mode)
-(js2r-add-keybindings-with-prefix "C-c C-m")
 
 (defun js2-imenu-make-index ()
       (interactive)
@@ -130,8 +128,6 @@
 	      (lambda ()
 		(setq imenu-create-index-function 'js2-imenu-make-index)))
 
-(global-set-key (kbd "M-s i") 'counsel-imenu)
-
 ;;安装主题
 (add-to-list 'my/packages 'monokai-theme)
 (load-theme 'monokai 1)
@@ -140,11 +136,12 @@
 (popwin-mode t)
 
 (require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
 
 (add-to-list 'load-path "~/dir/to/your/iedit")
 (require 'iedit)
 (global-set-key (kbd "M-s e") 'iedit-mode)
+
+(require 'org-pomodoro)
 
 ;; 文件末尾
 (provide 'init-packages)

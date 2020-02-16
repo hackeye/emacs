@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(company-idle-delay 0.08)
  '(company-minimum-prefix-length 1)
+ '(org-pomodoro-long-break-length 40)
  '(package-selected-packages (quote (company)))
  '(popwin:popup-window-position (quote right))
  '(popwin:popup-window-width 60))
