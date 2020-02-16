@@ -10,11 +10,11 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-(require 'init-keybindings)
 (require 'init-packages)
 (require 'init-ui)
 (require 'init-better-defaults)
-(require 'org)
+(require 'init-org)
+(require 'init-keybindings)
 
 (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
 

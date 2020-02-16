@@ -37,6 +37,8 @@
 		iedit
 		;;Edit multiple regions in the same way simultaneously
 		org-pomodoro
+		helm-ag
+		;;the silver searcher with helm interface
 		) "Default packages")
 
  (setq package-selected-packages my/packages)
@@ -142,6 +144,10 @@
 (global-set-key (kbd "M-s e") 'iedit-mode)
 
 (require 'org-pomodoro)
+
+;;Enable helm-follow-mode by default
+;;(custom-set-variables
+;; '(helm-follow-mode-persistent t))
 
 ;; 文件末尾
 (provide 'init-packages)
