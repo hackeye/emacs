@@ -39,6 +39,10 @@
 		org-pomodoro
 		helm-ag
 		;;the silver searcher with helm interface
+		flycheck
+		;;On-the-fly syntax checking
+		auto-yasnippet
+		;;Quickly create disposable yasnippets
 		) "Default packages")
 
  (setq package-selected-packages my/packages)
@@ -133,7 +137,7 @@
 ;;安装主题
 (add-to-list 'my/packages 'monokai-theme)
 (load-theme 'monokai 1)
-
+ 
 (require 'popwin)
 (popwin-mode t)
 
@@ -144,6 +148,13 @@
 (global-set-key (kbd "M-s e") 'iedit-mode)
 
 (require 'org-pomodoro)
+
+;;(global-flycheck-mode t)
+(add-hook 'js2-mode-hook 'flycheck-mode)
+
+(require 'yasnippet)
+(yas-reload-all)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
 
 ;;Enable helm-follow-mode by default
 ;;(custom-set-variables
