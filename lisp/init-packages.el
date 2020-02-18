@@ -24,8 +24,8 @@
 		nodejs-repl
 		exec-path-from-shell
 		;; --- Themes ---
-		monokai-theme
-		;; solarized-theme
+		;;monokai-theme
+		solarized-theme
 		popwin
 		reveal-in-osx-finder
 		web-mode
@@ -43,6 +43,13 @@
 		;;On-the-fly syntax checking
 		auto-yasnippet
 		;;Quickly create disposable yasnippets
+		evil
+		;;Extensible Vi layer for Emacs
+		evil-leader
+		evil-surround
+		window-numbering
+		powerline-evil
+		which-key
 		) "Default packages")
 
  (setq package-selected-packages my/packages)
@@ -135,8 +142,38 @@
 		(setq imenu-create-index-function 'js2-imenu-make-index)))
 
 ;;安装主题
-(add-to-list 'my/packages 'monokai-theme)
-(load-theme 'monokai 1)
+;;(add-to-list 'my/packages 'monokai-theme)
+;;(load-theme 'monokai 1)
+;;(load-theme 'solarized-light t)
+(load-theme 'solarized-dark t)
+;; make the fringe stand out from the background
+(setq solarized-distinct-fringe-background t)
+
+;; Don't change the font for some headings and titles
+(setq solarized-use-variable-pitch nil)
+
+;; make the modeline high contrast
+(setq solarized-high-contrast-mode-line t)
+
+;; Use less bolding
+(setq solarized-use-less-bold t)
+
+;; Use more italics
+(setq solarized-use-more-italic t)
+
+;; Use less colors for indicators such as git:gutter, flycheck and similar
+(setq solarized-emphasize-indicators nil)
+
+;; Don't change size of org-mode headlines (but keep other size-changes)
+(setq solarized-scale-org-headlines nil)
+
+;; Avoid all font-size changes
+(setq solarized-height-minus-1 1.0)
+(setq solarized-height-plus-1 1.0)
+(setq solarized-height-plus-2 1.0)
+(setq solarized-height-plus-3 1.0)
+(setq solarized-height-plus-4 1.0)
+(setq x-underline-at-descent-line t)
  
 (require 'popwin)
 (popwin-mode t)
@@ -155,6 +192,60 @@
 (require 'yasnippet)
 (yas-reload-all)
 (add-hook 'prog-mode-hook #'yas-minor-mode)
+
+(evil-mode 1)
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+(global-evil-leader-mode)
+(evil-leader/set-key
+  "ff" 'find-file
+  "fr" 'recentf-open-files
+  "bb" 'switch-to-buffer
+  "bk" 'kill-buffer
+  "pf" 'counsel-git
+  "ps" 'helm-do-ag-project-root
+  "0"  'select-window-0
+  "1"  'select-window-1
+  "2"  'select-window-2
+  "3"  'select-window-3
+  "w/" 'split-window-right
+  "w-" 'split-window-below
+  ":"  'counsel-M-x
+  "wM" 'delete-other-windows
+  "qq" 'save-buffers-kill-terminal
+  )
+
+
+
+(window-numbering-mode 1)
+(require 'powerline-evil)
+
+(require 'evil-surround)
+(global-evil-surround-mode 1)
+
+(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+
+(evilnc-default-hotkeys)
+
+(dolist (mode '(ag-mode
+		flycheck-error-list-mode
+		occur-mode
+		git-rebase-mode))
+  (add-to-list 'evil-emacs-state-modes mode))
+(add-hook 'occur-mode-hook
+	  (lambda ()
+	    (evil-add-hjkl-bindings occur-mode-map 'emacs
+	      (kbd "/")       'evil-search-forward
+	      (kbd "n")       'evil-search-next
+	      (kbd "N")       'evil-search-previous
+	      (kbd "C-d")     'evil-scroll-down
+	      (kbd "C-u")     'evil-scroll-up)
+	    ))
+
+(which-key-mode 1)
+(setq which-key-side-window-location 'right)
 
 ;;Enable helm-follow-mode by default
 ;;(custom-set-variables
