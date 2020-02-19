@@ -6,7 +6,6 @@
 (depends-on "async")
 (depends-on "auto-yasnippet")
 (depends-on "cask")
-(depends-on "command-log-mode")
 (depends-on "company")
 (depends-on "counsel")
 (depends-on "dash")

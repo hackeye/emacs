@@ -47,9 +47,12 @@
 		;;Extensible Vi layer for Emacs
 		evil-leader
 		evil-surround
+		evil-nerd-commenter
 		window-numbering
 		powerline-evil
 		which-key
+		pallet
+		;;A package management tool for Emacs, using Cask
 		) "Default packages")
 
  (setq package-selected-packages my/packages)
@@ -224,10 +227,9 @@
 (require 'evil-surround)
 (global-evil-surround-mode 1)
 
-(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-
 (evilnc-default-hotkeys)
+(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
 
 (dolist (mode '(ag-mode
 		flycheck-error-list-mode
@@ -246,6 +248,13 @@
 
 (which-key-mode 1)
 (setq which-key-side-window-location 'right)
+
+(require 'cask "<path-to-cask>/cask.el")
+; 类似于 package-initialize
+(cask-initialize)
+(require 'pallet)
+; 激活 pallet, 在安装包时将 Cask 文件写入相应信息
+(pallet-mode t)
 
 ;;Enable helm-follow-mode by default
 ;;(custom-set-variables
