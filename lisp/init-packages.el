@@ -1,73 +1,73 @@
- (when (>= emacs-major-version 24)
-     (require 'package)
-     (package-initialize)
-     (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-		      ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+;;  (when (>= emacs-major-version 24)
+;;      (require 'package)
+;;      (package-initialize)
+;;      (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
+;; 		      ("melpa" . "http://elpa.emacs-china.org/melpa/"))))
 
-;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
+;; ;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
 
- ;; cl - Common Lisp Extension
-(require 'cl)
+;;  ;; cl - Common Lisp Extension
+;; (require 'cl)
 
- ;; Add Packages
- (defvar my/packages '(
-		;; --- Auto-completion ---
-		company
-		;; --- Better Editor ---
-		hungry-delete
-		swiper
-		counsel
-		smartparens
-		;; --- Major Mode ---
-		js2-mode
-		;; --- Minor Mode ---
-		nodejs-repl
-		exec-path-from-shell
-		;; --- Themes ---
-		;;monokai-theme
-		solarized-theme
-		popwin
-		reveal-in-osx-finder
-		web-mode
-		;;major mode for editing web templates
-		js2-refactor
-		;;A JavaScript refactoring library for emacs
-		expand-region
-		;;Increase selected region by semantic units
-		iedit
-		;;Edit multiple regions in the same way simultaneously
-		org-pomodoro
-		helm-ag
-		;;the silver searcher with helm interface
-		flycheck
-		;;On-the-fly syntax checking
-		auto-yasnippet
-		;;Quickly create disposable yasnippets
-		evil
-		;;Extensible Vi layer for Emacs
-		evil-leader
-		evil-surround
-		evil-nerd-commenter
-		window-numbering
-		powerline-evil
-		which-key
-		pallet
-		;;A package management tool for Emacs, using Cask
-		) "Default packages")
+;;  ;; Add Packages
+;;  (defvar my/packages '(
+;; 		;; --- Auto-completion ---
+;; 		company
+;; 		;; --- Better Editor ---
+;; 		hungry-delete
+;; 		swiper
+;; 		counsel
+;; 		smartparens
+;; 		;; --- Major Mode ---
+;; 		js2-mode
+;; 		;; --- Minor Mode ---
+;; 		nodejs-repl
+;; 		exec-path-from-shell
+;; 		;; --- Themes ---
+;; 		;;monokai-theme
+;; 		solarized-theme
+;; 		popwin
+;; 		reveal-in-osx-finder
+;; 		web-mode
+;; 		;;major mode for editing web templates
+;; 		js2-refactor
+;; 		;;A JavaScript refactoring library for emacs
+;; 		expand-region
+;; 		;;Increase selected region by semantic units
+;; 		iedit
+;; 		;;Edit multiple regions in the same way simultaneously
+;; 		org-pomodoro
+;; 		helm-ag
+;; 		;;the silver searcher with helm interface
+;; 		flycheck
+;; 		;;On-the-fly syntax checking
+;; 		auto-yasnippet
+;; 		;;Quickly create disposable yasnippets
+;; 		evil
+;; 		;;Extensible Vi layer for Emacs
+;; 		evil-leader
+;; 		evil-surround
+;; 		evil-nerd-commenter
+;; 		window-numbering
+;; 		powerline-evil
+;; 		which-key
+;; 		pallet
+;; 		;;A package management tool for Emacs, using Cask
+;; 		) "Default packages")
 
- (setq package-selected-packages my/packages)
+;;  (setq package-selected-packages my/packages)
 
- (defun my/packages-installed-p ()
-     (loop for pkg in my/packages
-	   when (not (package-installed-p pkg)) do (return nil)
-	   finally (return t)))
+;;  (defun my/packages-installed-p ()
+;;      (loop for pkg in my/packages
+;; 	   when (not (package-installed-p pkg)) do (return nil)
+;; 	   finally (return t)))
 
- (unless (my/packages-installed-p)
-     (message "%s" "Refreshing package database...")
-     (package-refresh-contents)
-     (dolist (pkg my/packages)
-       (when (not (package-installed-p pkg))
-	 (package-install pkg))))
+;;  (unless (my/packages-installed-p)
+;;      (message "%s" "Refreshing package database...")
+;;      (package-refresh-contents)
+;;      (dolist (pkg my/packages)
+;;        (when (not (package-installed-p pkg))
+;; 	 (package-install pkg))))
 
  ;; Find Executable Path on OS X
  (when (memq window-system '(mac ns))
@@ -248,13 +248,6 @@
 
 (which-key-mode 1)
 (setq which-key-side-window-location 'right)
-
-(require 'cask "<path-to-cask>/cask.el")
-; 类似于 package-initialize
-(cask-initialize)
-(require 'pallet)
-; 激活 pallet, 在安装包时将 Cask 文件写入相应信息
-(pallet-mode t)
 
 ;;Enable helm-follow-mode by default
 ;;(custom-set-variables
